@@ -4,6 +4,7 @@ import sys
 import subprocess
 
 filename = sys.argv[1]
+#there should be no space in the headers of the fasta file
 
 taxaidlist = []
 taxaspecieslist = []
