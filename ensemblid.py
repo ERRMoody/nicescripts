@@ -1,4 +1,3 @@
-from Bio import Entrez
 from Bio import SeqIO
 import sys
 import subprocess
@@ -30,12 +29,15 @@ with open (filename, 'r') as inputalignment:
 			if 'MGP_' in line:
 				lengthcheck = lengthcheck[1:-1]
 				taxaidlisttoconvert.append(lengthcheck)
+			elif 'FBp' in line:
+				lengthcheck = lengthcheck[1:-1]
+				taxaidlisttoconvert.append(lengthcheck)
 			elif len(lengthcheck) >= 2:
 				taxaid = lengthcheck
 				taxaid = taxaid[1:-1]
 				taxaidlisttoconvert.append(taxaid)
-
+			
 
 
 for taxa in taxaidlisttoconvert:
-	subprocess.call(['sed -i -e "s/'+taxa+'P/'+taxaidtospecies[taxa]+'_/g" '+filename+' '], shell=True)
+	subprocess.call(['sed -i -e "s/'+taxa+'P/'+taxaidtospecies[taxa]+'_/gi" '+filename+' '], shell=True)
