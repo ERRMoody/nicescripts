@@ -5,6 +5,10 @@ import subprocess
 
 filename = sys.argv[1]
 
+filename2 = sys.argv[1]
+
+subprocess.call(['sed -i -e "s/ /_/g" '+filename2+''], shell=True)
+
 taxaidlist = []
 taxaspecieslist = []
 taxaidtospecies = {}
@@ -21,13 +25,13 @@ with open (filename, 'r') as inputalignment:
 				taxaid = lengthcheck + '_' + line.split('_')[1]
 				taxaid = taxaid[1:]
 				taxaidlist.append(taxaid)
+
 for taxa in taxaidlist:
 	idvariable = taxa
 	Entrez.email = 'Edmund.Moody@bristol.ac.uk'
 	handle = Entrez.efetch(db="protein", id=idvariable, rettype="gb", retmode="text")
-	x = SeqIO.read(handle, 'genbank')
+	x =  next(SeqIO.parse(handle, 'genbank'))
 	organism = x.annotations['organism']
-
 	if x.annotations['taxonomy']:
 		taxonomy = x.annotations['taxonomy']
 		substitute = str(taxonomy[0] + '_' + organism.replace(" ","_") + '_')
