@@ -4,6 +4,7 @@ import sys
 import subprocess
 
 filename = sys.argv[1]
+#there should be no spaces in the headers of the faster file 
 
 filename2 = sys.argv[1]
 
