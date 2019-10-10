@@ -43,4 +43,4 @@ for taxa in taxaidlist:
 taxaidtospecies = dict(zip(taxaidlist, taxaspecieslist))
 
 for key, value in taxaidtospecies.items():
-	subprocess.call(['sed -i -e "s/'+key+'/'+value+'/g" '+filename+''], shell=True)
+	subprocess.call(['sed -i -e "s/'+key+'/'+value+''+key+'/g" '+filename+''], shell=True)
