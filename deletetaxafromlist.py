@@ -9,5 +9,5 @@ for line in bacfile:
     listofspecies.append(x)
 
 for i in listofspecies:
-    subprocess.call(['sed -i -e "s/>'+i+'/,+1d/g" '+filename+''],shell=True)
+    subprocess.call(['sed -i -e "/>'+i+'/,+1d" '+filename+''],shell=True)
 
