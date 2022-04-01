@@ -6,10 +6,11 @@ accessions = []
 
 with open (sys.argv[1], 'r') as filename:
 	for line in filename:
-		line = line.strip()	
+		line = line.strip()
 		accessions.append(line)
 
-print ("Accession,Species,Phylum,Kingdom,Domain")
+print ("Accession,Species_Name,Domain,Kingdom,Phylum,Clade,Order,Family,Genus,Species", sep=',')
+
 
 for taxa in accessions:
 	idvariable = taxa
@@ -35,9 +36,15 @@ for taxa in accessions:
 					speciesname = glomp
 	handle = Entrez.efetch(db="taxonomy", id=taxid, retmode ="xml")
 	record = Entrez.read(handle)
+
 	phylum1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['phylum']}
 	domain1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['superkingdom']}
 	kingdom1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['kingdom']}
+	order1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['order']}
+	family1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['family']}
+	genus1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['genus']}
+	clade1 = {d['Rank']:d['ScientificName'] for d in record[0]['LineageEx'] if d['Rank'] in ['clade']}
+
 
 	phylum2 = str(phylum1)
 	phylum3 = phylum2.split(':')
@@ -47,19 +54,47 @@ for taxa in accessions:
 
 	domain2 = str(domain1)
 	domain3 = domain2.split(':')
-	
+
+	order2 = str(order1)
+	order3 = order2.split(':')
+
+	family2 = str(family1)
+	family3 = family2.split(':')
+
+	genus2 = str(genus1)
+	genus3 = genus2.split(':')
+
+	clade2 = str(clade1)
+	clade3 = clade2.split(':')
+
 	kingdom = "N/A"
 	domain = "N/A"
 	phylum = "N/A"
+	clade = "N/A"
+	order = "N/A"
+	family = "N/A"
+	genus = "N/A"
 
 	if len(phylum3) > 1:
 		phylum = phylum3[1].strip("{} '")
-	
+
 	if len(kingdom3) > 1:
-		kingdom = phylum3[1].strip("{} '")
-	
+		kingdom = kingdom3[1].strip("{} '")
+
 	if len(domain3) > 1:
 		domain = domain3[1].strip("{} '")
-	
 
-	print (taxa, speciesname, phylum, kingdom, domain, sep = ',')
+	if len(order3) > 1:
+		order = order3[1].strip("{} '")
+
+	if len(genus3) > 1:
+		genus = genus3[1].strip("{} '")
+	
+	if len(clade3) > 1:
+		clade = clade3[1].strip("{} '")
+
+	if len(family3) > 1:
+		family = family3[1].strip("{} '")
+
+
+	print (taxa, speciesname, domain, kingdom, phylum, clade, order, family, genus, speciesname, sep = ',')
