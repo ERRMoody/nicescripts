@@ -3,11 +3,12 @@ import subprocess
 
 filename = sys.argv[1]
 listofspecies = []
-bacfile = open('./bacterialist', 'r')
-for line in bacfile:
+
+listfile = open(sys.argv[2], 'r')
+for line in listfile:
     x = line.rstrip()
     listofspecies.append(x)
 
 for i in listofspecies:
-    subprocess.call(['sed -i -e "/>'+i+'/,+1d" '+filename+''],shell=True)
+    subprocess.call(['sed -e "/>'+i+'/,+1d" '+filename+''],shell=True)
 
