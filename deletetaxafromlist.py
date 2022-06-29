@@ -10,5 +10,5 @@ for line in listfile:
     listofspecies.append(x)
 
 for i in listofspecies:
-    subprocess.call(['sed -e "/>'+i+'/,+1d" '+filename+''],shell=True)
+    subprocess.call(['sed -i -e "/>'+i+'/,+1d" '+filename+''],shell=True)
 
