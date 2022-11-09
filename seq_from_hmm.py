@@ -19,7 +19,7 @@ for record in SeqIO.parse(sys.argv[2], "fasta"):
 		sequences.append(record)
 
 
-output = str(sys.argv[1]) + '.arc_euk_added'
+output = str(sys.argv[1]) + '.hmmered_fasta'
 
 SeqIO.write(sequences, output, "fasta")
 
