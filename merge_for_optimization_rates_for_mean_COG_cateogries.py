@@ -1,6 +1,12 @@
 import pandas as pd
 import sys
 
+
+#edit map through tsv_reader.py
+
+#Generate OR files through,  for i in *_results.txt; do echo -n ${i% *}","; grep -B 1 -m 1 'K' $i | head -1 | cut -d' ' -f1 ; done > KEGG5_OR.csv
+
+
 df1 = pd.read_csv(sys.argv[1], sep = '\t')
 df2 = pd.read_csv(sys.argv[2])
 
